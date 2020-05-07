@@ -6,14 +6,15 @@ import javax.persistence.*;
  * Created by Florina on 5/6/2020
  */
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class Authentication {
+    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idUsers;
+    private Long idUser;
 
     @Column
-    private String name;
+    private String username;
 
     @Column
     private String password;
@@ -21,18 +22,18 @@ public class Authentication {
     public Authentication() {
     }
 
-    public Authentication(Long idUsers, String name, String password) {
-        this.idUsers = idUsers;
-        this.name = name;
+    public Authentication(Long idUser, String username, String password) {
+        this.idUser = idUser;
+        this.username = username;
         this.password = password;
     }
 
-    public Long getIdUsers() {
-        return idUsers;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -41,9 +42,9 @@ public class Authentication {
 
     @Override
     public String toString() {
-        return "Model{" +
-                "idUsers=" + idUsers +
-                ", name='" + name + '\'' +
+        return "Authentication{" +
+                "idUsers=" + idUser +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
