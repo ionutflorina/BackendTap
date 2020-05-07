@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "USERS")
-public class Authentication {
+public class User {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class Authentication {
     @Column
     private String password;
 
-    public Authentication() {
+    public User() {
     }
 
-    public Authentication(Long idUser, String name, String surname, String email, String password) {
+    public User(Long idUser, String name, String surname, String email, String password) {
         this.idUser = idUser;
         this.name = name;
         this.surname = surname;
@@ -58,7 +58,7 @@ public class Authentication {
 
     @Override
     public String toString() {
-        return "Authentication{" +
+        return "User{" +
                 "idUser=" + idUser +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
