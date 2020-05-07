@@ -14,7 +14,13 @@ public class Authentication {
     private Long idUser;
 
     @Column
-    private String username;
+    private String name;
+
+    @Column
+    private String surname;
+
+    @Column
+    private String email;
 
     @Column
     private String password;
@@ -22,9 +28,11 @@ public class Authentication {
     public Authentication() {
     }
 
-    public Authentication(Long idUser, String username, String password) {
+    public Authentication(Long idUser, String name, String surname, String email, String password) {
         this.idUser = idUser;
-        this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
         this.password = password;
     }
 
@@ -32,8 +40,16 @@ public class Authentication {
         return idUser;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {
@@ -43,8 +59,10 @@ public class Authentication {
     @Override
     public String toString() {
         return "Authentication{" +
-                "idUsers=" + idUser +
-                ", username='" + username + '\'' +
+                "idUser=" + idUser +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
