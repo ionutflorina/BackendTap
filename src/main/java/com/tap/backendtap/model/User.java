@@ -30,14 +30,6 @@ public class User {
     public User() {
     }
 
-    public User(Long idUser, String name, String surname, String email, String password) {
-        this.idUser = idUser;
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-    }
-
     public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
