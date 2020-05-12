@@ -1,6 +1,8 @@
 package com.tap.backendtap.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Florina on 5/6/2020
@@ -30,6 +32,13 @@ public class User {
 
     public User(Long idUser, String name, String surname, String email, String password) {
         this.idUser = idUser;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
