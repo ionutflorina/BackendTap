@@ -1,5 +1,6 @@
 package com.tap.backendtap.controller;
 
+import com.tap.backendtap.model.LoginRequest;
 import com.tap.backendtap.model.User;
 import com.tap.backendtap.repository.UserRepo;
 import com.tap.backendtap.security.Model.JwtResponse;
@@ -16,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -45,11 +47,10 @@ public class UserController {
     UserRepo userRepository;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestParam String email,
-                                              @RequestParam String password) throws UnsupportedEncodingException {
+    public ResponseEntity<?> loginUser(@Valid @RequestBody LoginRequest user) throws UnsupportedEncodingException {
 
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(email, password));
+                new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
