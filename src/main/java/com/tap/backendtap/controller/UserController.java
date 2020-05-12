@@ -17,8 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -69,13 +67,13 @@ public class UserController {
         if (userRepository.existsUserByEmail(email)) {
             return ResponseEntity
                     .badRequest()
-                    .body("Error: Username is already taken!");
+                    .body("Error: Email is already in use!");
         }
 
         if (userRepository.existsUserByNameAndSurname(name, surname)) {
             return ResponseEntity
                     .badRequest()
-                    .body("Error: Email is already in use!");
+                    .body("Error: Username is already taken!");
         }
 
         // Create new user's account
@@ -86,18 +84,8 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/register", method = POST)
-    public ResponseEntity<User> saveUser(@RequestParam String name,
-                                         @RequestParam String surname,
-                                         @RequestParam String password,
-                                         @RequestParam String email) {
-        User newUser = new User(name, surname, email, password);
-        userService.saveUser(newUser);
-        return new ResponseEntity<User>(newUser, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/idByEmail", method = GET)
-    public ResponseEntity<Long> findIdByEmail(String email) {
+    public ResponseEntity<Long> findIdByEmail(@RequestParam String email) {
         Long userId = userService.findIdUserByEmail(email);
         return new ResponseEntity<Long>(userId, HttpStatus.OK);
     }
