@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserRepo extends CrudRepository<User, Long> {
-    @Query ("Select u.idUser from User u where u.email=:email")
+    User findUserByEmail(String email);
+
+    Boolean existsUserByEmail(String email);
+
+    Boolean existsUserByNameAndSurname(String name, String surname);
+
+    @Query("Select u.idUser from User u where u.email=:email")
     Long getUserIdByEmail(@Param("email") String email);
 }
