@@ -75,14 +75,11 @@ public class UserController {
                     .badRequest()
                     .body("Error: Username is already taken!");
         }
-
-        // Create new user's account
         User user = new User(name, surname, email, encoder.encode(password));
         userRepository.save(user);
 
         return ResponseEntity.ok("User registered successfully!");
     }
-
 
     @RequestMapping(value = "/idByEmail", method = GET)
     public ResponseEntity<Long> findIdByEmail(@RequestParam String email) {
