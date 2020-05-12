@@ -15,13 +15,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * Created by Florina on 5/6/2020
@@ -61,23 +61,15 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestParam String name,
-                                          @RequestParam String surname,
-                                          @RequestParam String email,
-                                          @RequestParam String password) {
-        if (userRepository.existsUserByEmail(email)) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody User user ) {
+        if (userRepository.existsUserByEmail(user.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body("Error: Email is already in use!");
         }
 
-        if (userRepository.existsUserByNameAndSurname(name, surname)) {
-            return ResponseEntity
-                    .badRequest()
-                    .body("Error: Username is already taken!");
-        }
-        User user = new User(name, surname, email, encoder.encode(password));
-        userRepository.save(user);
+        User newUser = new User(user.getName(), user.getSurname(), user.getEmail(), encoder.encode(user.getPassword()));
+        userRepository.save(newUser);
 
         return ResponseEntity.ok("User registered successfully!");
     }
